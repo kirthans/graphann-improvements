@@ -1,0 +1,2 @@
+/usr/bin/ar qc libgraphann_lib.a CMakeFiles/graphann_lib.dir/src/distance.cpp.o CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o
+/usr/bin/ranlib libgraphann_lib.a

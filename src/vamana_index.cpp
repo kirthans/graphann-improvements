@@ -199,13 +199,20 @@ void VamanaIndex::build(const std::string& data_path, uint32_t R, uint32_t L,
     for (size_t idx = 0; idx < npts_; idx++) {
         uint32_t point = perm[idx];
 
+        // Calculate current alpha based on linear schedule
+        float current_alpha = alpha;
+        if (alpha > 1.0f && npts_ > 1) {
+            current_alpha = alpha - (alpha - 1.0f) * (static_cast<float>(idx) / static_cast<float>(npts_ - 1));
+            current_alpha = std::max(1.0f, current_alpha);
+        }
+
         // Step 1: Search for this point in the current graph to find candidates
         auto [candidates, _dist_cmps] = greedy_search(get_vector(point), L);
 
         // Step 2: Prune candidates to get this point's neighbors
         // We don't need to lock graph_[point] here because each point appears
         // exactly once in the permutation — only this thread writes to it now.
-        robust_prune(point, candidates, alpha, R);
+        robust_prune(point, candidates, current_alpha, R);
 
         // Step 3: Add backward edges from each new neighbor back to this point
         for (uint32_t nbr : graph_[point]) {
@@ -223,7 +230,7 @@ void VamanaIndex::build(const std::string& data_path, uint32_t R, uint32_t L,
                     float d = compute_l2sq(get_vector(nbr), get_vector(nn), dim_);
                     nbr_candidates.push_back({d, nn});
                 }
-                robust_prune(nbr, nbr_candidates, alpha, R);
+                robust_prune(nbr, nbr_candidates, current_alpha, R);
             }
         }
 

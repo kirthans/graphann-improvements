@@ -1,0 +1,5 @@
+/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles/graphann_lib.dir
+/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles/build_index.dir
+/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles/search_index.dir
+/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles/edit_cache.dir
+/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles/rebuild_cache.dir

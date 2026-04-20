@@ -12,6 +12,12 @@ struct SearchResult {
     double latency_us;          // search latency in microseconds
 };
 
+struct RoutingNode {
+    uint32_t medoid_id;
+    std::vector<float> medoid_vector;
+    uint32_t assigned_L;
+};
+
 // Vamana graph-based approximate nearest neighbor index.
 //
 // Key concepts:
@@ -35,8 +41,9 @@ class VamanaIndex {
     //   L:     search list size during construction (L >= R)
     //   alpha: RNG pruning parameter (typically 1.0 - 1.5)
     //   gamma: max-degree multiplier for triggering neighbor pruning (e.g. 1.5)
+    //   L_target: Dynamic average latency bound target
     void build(const std::string& data_path, uint32_t R, uint32_t L,
-               float alpha, float gamma);
+               float alpha, float gamma, uint32_t L_target = 50);
 
     // ---- Search ----
     // Search for K nearest neighbors of a query vector.
@@ -44,6 +51,9 @@ class VamanaIndex {
     //   K:     number of nearest neighbors to return
     //   L:     search list size (L >= K)
     SearchResult search(const float* query, uint32_t K, uint32_t L) const;
+
+    // Search for K nearest neighbors using dynamically allocated search beam sizes
+    SearchResult search_dynamic(const float* query, uint32_t K) const;
 
     // ---- Persistence ----
     // Save index (graph + metadata) to a binary file.
@@ -61,10 +71,10 @@ class VamanaIndex {
 
     // ---- Core algorithms ----
 
-    // Greedy search starting from start_node_.
+    // Greedy search starting from given node or start_node_.
     // Returns (sorted candidate list, number of distance computations).
     std::pair<std::vector<Candidate>, uint32_t>
-    greedy_search(const float* query, uint32_t L) const;
+    greedy_search(const float* query, uint32_t L, uint32_t s_node = UINT32_MAX) const;
 
     // Alpha-RNG pruning: selects a diverse subset of candidates as neighbors.
     // Modifies graph_[node] in place. Candidates should NOT include node itself.
@@ -80,6 +90,7 @@ class VamanaIndex {
     // ---- Graph ----
     std::vector<std::vector<uint32_t>> graph_;  // adjacency lists
     uint32_t start_node_ = 0;
+    std::vector<RoutingNode> routing_table_;
 
     // ---- Concurrency ----
     // Per-node locks for parallel build (mutable so search can be const).

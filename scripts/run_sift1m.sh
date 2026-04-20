@@ -19,6 +19,9 @@ QUERY_FBIN="$DATA_DIR/sift_query.fbin"
 GT_IBIN="$DATA_DIR/sift_gt.ibin"
 INDEX_BIN="$DATA_DIR/sift_index.bin"
 
+L_TARGET=${1:-50}
+echo "Using L_TARGET = $L_TARGET"
+
 # ─── 1. Build the project ────────────────────────────────────────────────────
 echo "=== Step 1: Building the project ==="
 mkdir -p "$BUILD_DIR"
@@ -61,7 +64,7 @@ echo "=== Step 4: Building the Vamana index ==="
 "$BUILD_DIR/build_index" \
     --data "$BASE_FBIN" \
     --output "$INDEX_BIN" \
-    --R 16 --L 50 --alpha 1.2 --gamma 1.5
+    --R 16 --L 50 --alpha 1.2 --gamma 1.5 --L_target "$L_TARGET"
 echo ""
 
 # ─── 5. Search and evaluate ──────────────────────────────────────────────────

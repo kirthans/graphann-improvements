@@ -154,6 +154,36 @@ int main(int argc, char** argv) {
                   << std::endl;
     }
 
+    // --- Dynamic Search ---
+    {
+        std::vector<double> recalls(nq);
+        std::vector<uint32_t> dist_cmps(nq);
+        std::vector<double> latencies(nq);
+
+        #pragma omp parallel for schedule(dynamic, 16)
+        for (uint32_t q = 0; q < nq; q++) {
+            SearchResult res = index.search_dynamic(queries.row(q), K);
+
+            recalls[q] = compute_recall(res.ids, gt.row(q), K);
+            dist_cmps[q] = res.dist_cmps;
+            latencies[q] = res.latency_us;
+        }
+
+        double avg_recall = std::accumulate(recalls.begin(), recalls.end(), 0.0) / nq;
+        double avg_cmps = (double)std::accumulate(dist_cmps.begin(), dist_cmps.end(), 0ULL) / nq;
+        double avg_lat = std::accumulate(latencies.begin(), latencies.end(), 0.0) / nq;
+
+        std::sort(latencies.begin(), latencies.end());
+        double p99_lat = latencies[(size_t)(0.99 * nq)];
+
+        std::cout << std::setw(8) << "Dynamic"
+                  << std::setw(14) << std::fixed << std::setprecision(4) << avg_recall
+                  << std::setw(16) << std::fixed << std::setprecision(1) << avg_cmps
+                  << std::setw(18) << std::fixed << std::setprecision(1) << avg_lat
+                  << std::setw(18) << std::fixed << std::setprecision(1) << p99_lat
+                  << std::endl;
+    }
+
     std::cout << "\nDone." << std::endl;
     return 0;
 }

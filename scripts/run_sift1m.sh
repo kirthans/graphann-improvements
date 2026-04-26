@@ -19,9 +19,6 @@ QUERY_FBIN="$DATA_DIR/sift_query.fbin"
 GT_IBIN="$DATA_DIR/sift_gt.ibin"
 INDEX_BIN="$DATA_DIR/sift_index.bin"
 
-L_TARGET=${1:-50}
-echo "Using L_TARGET = $L_TARGET"
-
 # ─── 1. Build the project ────────────────────────────────────────────────────
 echo "=== Step 1: Building the project ==="
 mkdir -p "$BUILD_DIR"

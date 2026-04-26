@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements"
+CMAKE_SOURCE_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build"
+CMAKE_BINARY_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/graphann_lib.dir/depend.make
@@ -70,46 +70,46 @@ include CMakeFiles/graphann_lib.dir/progress.make
 include CMakeFiles/graphann_lib.dir/flags.make
 
 CMakeFiles/graphann_lib.dir/src/distance.cpp.o: CMakeFiles/graphann_lib.dir/flags.make
-CMakeFiles/graphann_lib.dir/src/distance.cpp.o: /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Project/Graph-ANN-Improvements/src/distance.cpp
+CMakeFiles/graphann_lib.dir/src/distance.cpp.o: /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Graph-ANN-Improvements/src/distance.cpp
 CMakeFiles/graphann_lib.dir/src/distance.cpp.o: CMakeFiles/graphann_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/graphann_lib.dir/src/distance.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/graphann_lib.dir/src/distance.cpp.o -MF CMakeFiles/graphann_lib.dir/src/distance.cpp.o.d -o CMakeFiles/graphann_lib.dir/src/distance.cpp.o -c "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/distance.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/graphann_lib.dir/src/distance.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/graphann_lib.dir/src/distance.cpp.o -MF CMakeFiles/graphann_lib.dir/src/distance.cpp.o.d -o CMakeFiles/graphann_lib.dir/src/distance.cpp.o -c "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/distance.cpp"
 
 CMakeFiles/graphann_lib.dir/src/distance.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/graphann_lib.dir/src/distance.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/distance.cpp" > CMakeFiles/graphann_lib.dir/src/distance.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/distance.cpp" > CMakeFiles/graphann_lib.dir/src/distance.cpp.i
 
 CMakeFiles/graphann_lib.dir/src/distance.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/graphann_lib.dir/src/distance.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/distance.cpp" -o CMakeFiles/graphann_lib.dir/src/distance.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/distance.cpp" -o CMakeFiles/graphann_lib.dir/src/distance.cpp.s
 
 CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o: CMakeFiles/graphann_lib.dir/flags.make
-CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o: /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Project/Graph-ANN-Improvements/src/io_utils.cpp
+CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o: /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Graph-ANN-Improvements/src/io_utils.cpp
 CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o: CMakeFiles/graphann_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o -MF CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o.d -o CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o -c "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/io_utils.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o -MF CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o.d -o CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o -c "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/io_utils.cpp"
 
 CMakeFiles/graphann_lib.dir/src/io_utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/graphann_lib.dir/src/io_utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/io_utils.cpp" > CMakeFiles/graphann_lib.dir/src/io_utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/io_utils.cpp" > CMakeFiles/graphann_lib.dir/src/io_utils.cpp.i
 
 CMakeFiles/graphann_lib.dir/src/io_utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/graphann_lib.dir/src/io_utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/io_utils.cpp" -o CMakeFiles/graphann_lib.dir/src/io_utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/io_utils.cpp" -o CMakeFiles/graphann_lib.dir/src/io_utils.cpp.s
 
 CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o: CMakeFiles/graphann_lib.dir/flags.make
-CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o: /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Project/Graph-ANN-Improvements/src/vamana_index.cpp
+CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o: /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Graph-ANN-Improvements/src/vamana_index.cpp
 CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o: CMakeFiles/graphann_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o -MF CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o.d -o CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o -c "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/vamana_index.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o -MF CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o.d -o CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o -c "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/vamana_index.cpp"
 
 CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/vamana_index.cpp" > CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/vamana_index.cpp" > CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.i
 
 CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/src/vamana_index.cpp" -o CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/src/vamana_index.cpp" -o CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.s
 
 # Object files for target graphann_lib
 graphann_lib_OBJECTS = \
@@ -125,7 +125,7 @@ libgraphann_lib.a: CMakeFiles/graphann_lib.dir/src/io_utils.cpp.o
 libgraphann_lib.a: CMakeFiles/graphann_lib.dir/src/vamana_index.cpp.o
 libgraphann_lib.a: CMakeFiles/graphann_lib.dir/build.make
 libgraphann_lib.a: CMakeFiles/graphann_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libgraphann_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libgraphann_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/graphann_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/graphann_lib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -138,6 +138,6 @@ CMakeFiles/graphann_lib.dir/clean:
 .PHONY : CMakeFiles/graphann_lib.dir/clean
 
 CMakeFiles/graphann_lib.dir/depend:
-	cd "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles/graphann_lib.dir/DependInfo.cmake" "--color=$(COLOR)"
+	cd "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build/CMakeFiles/graphann_lib.dir/DependInfo.cmake" "--color=$(COLOR)"
 .PHONY : CMakeFiles/graphann_lib.dir/depend
 

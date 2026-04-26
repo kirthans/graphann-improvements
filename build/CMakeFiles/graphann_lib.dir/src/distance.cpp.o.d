@@ -1,7 +1,7 @@
 CMakeFiles/graphann_lib.dir/src/distance.cpp.o: \
- /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Project/Graph-ANN-Improvements/src/distance.cpp \
+ /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Graph-ANN-Improvements/src/distance.cpp \
  /usr/include/stdc-predef.h \
- /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Project/Graph-ANN-Improvements/include/distance.h \
+ /home/kirthan/Academics/Semester\ 4/DA2303\ -\ Algos\ for\ DS/Graph-ANN-Improvements/include/distance.h \
  /usr/include/c++/13/cstdint \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \

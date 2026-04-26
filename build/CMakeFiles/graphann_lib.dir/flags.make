@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/include"
+CXX_INCLUDES = -I"/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/include"
 
 CXX_FLAGS = -O3 -march=native -DNDEBUG -std=gnu++17 -fopenmp
 

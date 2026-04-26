@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements"
+CMAKE_SOURCE_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build"
+CMAKE_BINARY_DIR = "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build/CMakeFiles" "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Project/Graph-ANN-Improvements/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/kirthan/Academics/Semester 4/DA2303 - Algos for DS/Graph-ANN-Improvements/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target

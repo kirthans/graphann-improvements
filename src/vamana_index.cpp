@@ -37,8 +37,19 @@ std::pair<std::vector<VamanaIndex::Candidate>, uint32_t>
 VamanaIndex::greedy_search(const float* query, uint32_t L, uint32_t s_node) const {
     // Candidate set: ordered by (distance, id). Bounded at size L.
     std::set<Candidate> candidate_set;
-    // Track which nodes we've already expanded (visited).
-    std::vector<bool> visited(npts_, false);
+    // Thread-local generation counter and visited array
+    thread_local std::vector<uint16_t> visited_array;
+    thread_local uint16_t current_query_id = 0;
+
+    if (visited_array.size() < npts_) {
+        visited_array.resize(npts_, 0);
+    }
+
+    current_query_id++;
+    if (current_query_id == 0) {
+        std::fill(visited_array.begin(), visited_array.end(), 0);
+        current_query_id = 1;
+    }
 
     uint32_t dist_cmps = 0;
 
@@ -48,7 +59,7 @@ VamanaIndex::greedy_search(const float* query, uint32_t L, uint32_t s_node) cons
     float start_dist = compute_l2sq(query, get_vector(act_start), dim_);
     dist_cmps++;
     candidate_set.insert({start_dist, act_start});
-    visited[act_start] = true;
+    visited_array[act_start] = current_query_id;
 
     // Track which candidates have been expanded (their neighbors explored).
     // We iterate through candidate_set; entries before our "frontier" pointer
@@ -79,9 +90,9 @@ VamanaIndex::greedy_search(const float* query, uint32_t L, uint32_t s_node) cons
             neighbors = graph_[best_node];
         }
         for (uint32_t nbr : neighbors) {
-            if (visited[nbr])
+            if (visited_array[nbr] == current_query_id)
                 continue;
-            visited[nbr] = true;
+            visited_array[nbr] = current_query_id;
 
             float d = compute_l2sq(query, get_vector(nbr), dim_);
             dist_cmps++;

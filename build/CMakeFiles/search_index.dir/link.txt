@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -march=native -DNDEBUG CMakeFiles/search_index.dir/src/search_index.cpp.o -o search_index  libgraphann_lib.a /usr/lib/gcc/x86_64-linux-gnu/13/libgomp.so /usr/lib/x86_64-linux-gnu/libpthread.a 

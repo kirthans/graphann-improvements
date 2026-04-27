@@ -55,8 +55,29 @@ VamanaIndex::greedy_search(const float* query, uint32_t L, uint32_t s_node) cons
 
     uint32_t act_start = (s_node == UINT32_MAX) ? start_node_ : s_node;
 
+    // Precompute LUT for PQ
+    std::vector<float> pq_lut;
+    if (pq_M_ > 0) {
+        pq_lut.resize(pq_M_ * 256);
+        for (uint32_t m = 0; m < pq_M_; ++m) {
+            const float* query_sub = query + m * pq_sub_dim_;
+            const float* codebook = pq_codebooks_.data() + m * 256 * pq_sub_dim_;
+            for (uint32_t k = 0; k < 256; ++k) {
+                pq_lut[m * 256 + k] = compute_l2sq(query_sub, codebook + k * pq_sub_dim_, pq_sub_dim_);
+            }
+        }
+    }
+
     // Seed with start node
-    float start_dist = compute_l2sq(query, get_vector(act_start), dim_);
+    float start_dist = 0;
+    if (pq_M_ > 0) {
+        const uint8_t* pq_vec = get_pq_vector(act_start);
+        for (uint32_t m = 0; m < pq_M_; ++m) {
+            start_dist += pq_lut[m * 256 + pq_vec[m]];
+        }
+    } else {
+        start_dist = compute_l2sq(query, get_vector(act_start), dim_);
+    }
     dist_cmps++;
     candidate_set.insert({start_dist, act_start});
     visited_array[act_start] = current_query_id;
@@ -94,7 +115,15 @@ VamanaIndex::greedy_search(const float* query, uint32_t L, uint32_t s_node) cons
                 continue;
             visited_array[nbr] = current_query_id;
 
-            float d = compute_l2sq(query, get_vector(nbr), dim_);
+            float d = 0;
+            if (pq_M_ > 0) {
+                const uint8_t* pq_vec = get_pq_vector(nbr);
+                for (uint32_t m = 0; m < pq_M_; ++m) {
+                    d += pq_lut[m * 256 + pq_vec[m]];
+                }
+            } else {
+                d = compute_l2sq(query, get_vector(nbr), dim_);
+            }
             dist_cmps++;
 
             // Insert if candidate set isn't full or this is closer than worst
@@ -453,6 +482,120 @@ void VamanaIndex::build(const std::string& data_path, uint32_t R, uint32_t L,
 }
 
 // ============================================================================
+// Product Quantization
+// ============================================================================
+
+void VamanaIndex::train_pq(uint32_t M) {
+    if (dim_ % M != 0) {
+        throw std::invalid_argument("Dimension must be divisible by M");
+    }
+    pq_M_ = M;
+    pq_sub_dim_ = dim_ / M;
+    uint32_t K_pq = 256;
+
+    std::cout << "Training PQ..." << std::endl;
+    std::cout << "  M = " << pq_M_ << ", sub_dim = " << pq_sub_dim_ << std::endl;
+
+    pq_codebooks_.resize(M * K_pq * pq_sub_dim_);
+    pq_data_.resize(npts_ * pq_M_);
+
+    std::mt19937 rng(42);
+
+    // Sub-sample dataset for training K-means
+    uint32_t sample_size = std::min(npts_, 25600u);
+    std::vector<uint32_t> sampled_ids(sample_size);
+    std::vector<uint32_t> dataset_ids(npts_);
+    std::iota(dataset_ids.begin(), dataset_ids.end(), 0);
+    std::shuffle(dataset_ids.begin(), dataset_ids.end(), rng);
+    std::copy(dataset_ids.begin(), dataset_ids.begin() + sample_size, sampled_ids.begin());
+
+    int max_iters = 15;
+
+    for (uint32_t m = 0; m < M; ++m) {
+        float* codebook = pq_codebooks_.data() + m * K_pq * pq_sub_dim_;
+        
+        // Randomly initialize 256 centroids from the sample
+        for (uint32_t k = 0; k < K_pq; ++k) {
+            uint32_t pt_id = sampled_ids[k];
+            const float* pt_vec = get_vector(pt_id) + m * pq_sub_dim_;
+            std::copy(pt_vec, pt_vec + pq_sub_dim_, codebook + k * pq_sub_dim_);
+        }
+
+        std::vector<uint32_t> cluster_assignments(sample_size, 0);
+        std::vector<uint32_t> cluster_sizes(K_pq, 0);
+        std::vector<float> cluster_means(K_pq * pq_sub_dim_, 0.0f);
+
+        for (int iter = 0; iter < max_iters; ++iter) {
+            std::fill(cluster_sizes.begin(), cluster_sizes.end(), 0);
+            std::fill(cluster_means.begin(), cluster_means.end(), 0.0f);
+            bool changed = false;
+
+            // Assignment
+            for (uint32_t i = 0; i < sample_size; ++i) {
+                uint32_t pt_id = sampled_ids[i];
+                const float* pt_subvec = get_vector(pt_id) + m * pq_sub_dim_;
+                
+                float min_dist = std::numeric_limits<float>::max();
+                uint32_t best_k = 0;
+                for (uint32_t k = 0; k < K_pq; ++k) {
+                    float dist = compute_l2sq(pt_subvec, codebook + k * pq_sub_dim_, pq_sub_dim_);
+                    if (dist < min_dist) {
+                        min_dist = dist;
+                        best_k = k;
+                    }
+                }
+                
+                if (cluster_assignments[i] != best_k) {
+                    cluster_assignments[i] = best_k;
+                    changed = true;
+                }
+                
+                cluster_sizes[best_k]++;
+                for(uint32_t d = 0; d < pq_sub_dim_; ++d) {
+                    cluster_means[best_k * pq_sub_dim_ + d] += pt_subvec[d];
+                }
+            }
+
+            if (!changed) break;
+
+            // Update
+            for (uint32_t k = 0; k < K_pq; ++k) {
+                if (cluster_sizes[k] > 0) {
+                    for (uint32_t d = 0; d < pq_sub_dim_; ++d) {
+                        codebook[k * pq_sub_dim_ + d] = cluster_means[k * pq_sub_dim_ + d] / cluster_sizes[k];
+                    }
+                }
+            }
+        }
+        std::cout << "\r  Trained sub-space " << m + 1 << " / " << M << std::flush;
+    }
+    std::cout << std::endl;
+
+    std::cout << "Encoding data..." << std::endl;
+    #pragma omp parallel for schedule(static)
+    for (uint32_t i = 0; i < npts_; ++i) {
+        const float* vec = get_vector(i);
+        uint8_t* pq_vec = pq_data_.data() + i * pq_M_;
+        
+        for (uint32_t m = 0; m < M; ++m) {
+            float* codebook = pq_codebooks_.data() + m * K_pq * pq_sub_dim_;
+            float min_dist = std::numeric_limits<float>::max();
+            uint8_t best_k = 0;
+            
+            for (uint32_t k = 0; k < K_pq; ++k) {
+                float dist = compute_l2sq(vec + m * pq_sub_dim_, codebook + k * pq_sub_dim_, pq_sub_dim_);
+                if (dist < min_dist) {
+                    min_dist = dist;
+                    best_k = k;
+                }
+            }
+            pq_vec[m] = best_k;
+        }
+    }
+    std::cout << "PQ encoded successfully." << std::endl;
+}
+
+// ============================================================================
 // Search
 // ============================================================================
 
@@ -549,6 +692,14 @@ void VamanaIndex::save(const std::string& path) const {
         out.write(reinterpret_cast<const char*>(&node.assigned_L), 4);
     }
 
+    // Save PQ Data
+    out.write(reinterpret_cast<const char*>(&pq_M_), 4);
+    if (pq_M_ > 0) {
+        out.write(reinterpret_cast<const char*>(&pq_sub_dim_), 4);
+        out.write(reinterpret_cast<const char*>(pq_codebooks_.data()), pq_codebooks_.size() * sizeof(float));
+        out.write(reinterpret_cast<const char*>(pq_data_.data()), pq_data_.size() * sizeof(uint8_t));
+    }
+
     std::cout << "Index saved to " << path << std::endl;
 }
 
@@ -601,6 +752,20 @@ void VamanaIndex::load(const std::string& index_path,
             in.read(reinterpret_cast<char*>(node.medoid_vector.data()), dim_ * sizeof(float));
             in.read(reinterpret_cast<char*>(&node.assigned_L), 4);
             routing_table_.push_back(node);
+        }
+    }
+
+    pq_M_ = 0;
+    pq_sub_dim_ = 0;
+    pq_codebooks_.clear();
+    pq_data_.clear();
+    if (in.read(reinterpret_cast<char*>(&pq_M_), 4)) {
+        if (pq_M_ > 0) {
+            in.read(reinterpret_cast<char*>(&pq_sub_dim_), 4);
+            pq_codebooks_.resize(pq_M_ * 256 * pq_sub_dim_);
+            in.read(reinterpret_cast<char*>(pq_codebooks_.data()), pq_codebooks_.size() * sizeof(float));
+            pq_data_.resize(npts_ * pq_M_);
+            in.read(reinterpret_cast<char*>(pq_data_.data()), pq_data_.size() * sizeof(uint8_t));
         }
     }
 

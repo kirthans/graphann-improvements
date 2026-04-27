@@ -62,6 +62,9 @@ class VamanaIndex {
     // Load index from a binary file. Data file must also be loaded separately.
     void load(const std::string& index_path, const std::string& data_path);
 
+    // Train Product Quantization for fast search
+    void train_pq(uint32_t M);
+
     uint32_t get_npts() const { return npts_; }
     uint32_t get_dim()  const { return dim_; }
 
@@ -87,6 +90,12 @@ class VamanaIndex {
     uint32_t dim_     = 0;
     bool     owns_data_ = false;  // whether we allocated data_
 
+    // ---- PQ Data ----
+    uint32_t pq_M_ = 0;
+    uint32_t pq_sub_dim_ = 0;
+    std::vector<float> pq_codebooks_; // [M x 256 x sub_dim_]
+    std::vector<uint8_t> pq_data_;    // [npts_ x M]
+
     // ---- Graph ----
     std::vector<std::vector<uint32_t>> graph_;  // adjacency lists
     uint32_t start_node_ = 0;
@@ -99,5 +108,8 @@ class VamanaIndex {
     // ---- Helpers ----
     const float* get_vector(uint32_t id) const {
         return data_ + (size_t)id * dim_;
+    }
+    const uint8_t* get_pq_vector(uint32_t id) const {
+        return pq_data_.data() + (size_t)id * pq_M_;
     }
 };

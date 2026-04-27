@@ -64,7 +64,7 @@ echo "=== Step 4: Building the Vamana index ==="
 "$BUILD_DIR/build_index" \
     --data "$BASE_FBIN" \
     --output "$INDEX_BIN" \
-    --R 16 --L 50 --alpha 1.2 --gamma 1.5
+    --R 16 --L 50 --alpha 1.2 --gamma 1.5 --pq_M 32
 echo ""
 
 # ─── 5. Search and evaluate ──────────────────────────────────────────────────

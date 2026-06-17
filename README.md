@@ -171,7 +171,7 @@ Output:
 
 ---
 
-## References
+## References:
 
 - Subramanya et al., *DiskANN: Fast Accurate Billion-point Nearest Neighbor Search on a Single Node*, NeurIPS 2019
 
